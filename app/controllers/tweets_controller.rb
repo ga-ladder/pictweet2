@@ -10,7 +10,14 @@ class TweetsController < ApplicationController
   end
 
   def create
-    Tweet.create(image: tweet_params[:image], text: text_params[:text], user_id: current_user.id)
+    Tweet.create(image: tweet_params[:image], text: tweet_params[:text], user_id: current_user.id)
+  end
+
+  def destroy
+    tweet = Tweet.find(params[:id])
+    if tweet.user_id == current_user.id
+      tweet.destroy
+    end
   end
 
   private
